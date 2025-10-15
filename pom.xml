@@ -47,7 +47,7 @@
 
     <build>
         <plugins>
-            <!-- Ensure the project compiles with Java 21 -->
+            <!-- Ensure the project compiles with Java 11 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
