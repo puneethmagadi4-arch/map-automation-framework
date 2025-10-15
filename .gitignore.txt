@@ -1,0 +1,14 @@
+# Maven build output
+target/
+*.log
+
+# Local Maven installation
+apache-maven-*/
+
+# IDE and editor files
+.vscode/
+.idea/
+
+# OS generated files
+.DS_Store
+Thumbs.db
