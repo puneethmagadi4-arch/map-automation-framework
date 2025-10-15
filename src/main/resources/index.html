@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sample Map App</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+        #map { height: 400px; }
+        .container { padding: 20px; }
+        .login-form { display: none; }
+        .logged-in { display: none; }
+        .search { margin-bottom: 10px; }
+        .categories { margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Sample Map Application</h1>
+        <div id="login-form">
+            <input type="text" id="username" placeholder="Username">
+            <input type="password" id="password" placeholder="Password">
+            <button id="login-btn">Login</button>
+            <div id="otp-section" style="display: none;">
+                <input type="text" id="otp" placeholder="Enter OTP">
+                <button id="verify-otp-btn">Verify OTP</button>
+            </div>
+        </div>
+        <div id="logged-in">
+            <button id="logout-btn">Logout</button>
+            <div class="search">
+                <input type="text" id="search-input" placeholder="Search location">
+                <button id="search-btn">Search</button>
+            </div>
+            <div class="categories">
+                <select id="category">
+                    <option value="">Select Category</option>
+                    <option value="restaurant">Restaurant</option>
+                    <option value="park">Park</option>
+                </select>
+                <select id="subcategory">
+                    <option value="">Select Subcategory</option>
+                    <option value="italian">Italian</option>
+                    <option value="chinese">Chinese</option>
+                </select>
+            </div>
+            <div id="map"></div>
+            <button id="change-location-btn">Change Location</button>
+            <button id="select-location-btn">Select Location</button>
+        </div>
+    </div>
+
+    <script>
+        let map;
+        let marker;
+
+        function initMap() {
+            map = L.map('map').setView([51.505, -0.09], 13);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(map);
+        }
+
+        document.getElementById('login-btn').addEventListener('click', function() {
+            // Mock login
+            document.getElementById('otp-section').style.display = 'block';
+        });
+
+        document.getElementById('verify-otp-btn').addEventListener('click', function() {
+            // Mock OTP verification
+            document.getElementById('login-form').style.display = 'none';
+            document.getElementById('logged-in').style.display = 'block';
+            initMap();
+        });
+
+        document.getElementById('logout-btn').addEventListener('click', function() {
+            document.getElementById('logged-in').style.display = 'none';
+            document.getElementById('login-form').style.display = 'block';
+            document.getElementById('otp-section').style.display = 'none';
+            if (map) map.remove();
+        });
+
+        document.getElementById('search-btn').addEventListener('click', function() {
+            const query = document.getElementById('search-input').value;
+            // Mock search: center on London if 'london' is searched
+            if (query.toLowerCase() === 'london') {
+                map.setView([51.505, -0.09], 13);
+            }
+        });
+
+        document.getElementById('change-location-btn').addEventListener('click', function() {
+            // Mock change location: move to Paris
+            map.setView([48.8566, 2.3522], 13);
+        });
+
+        document.getElementById('select-location-btn').addEventListener('click', function() {
+            // Mock select location: add marker at center
+            if (marker) map.removeLayer(marker);
+            const center = map.getCenter();
+            marker = L.marker([center.lat, center.lng]).addTo(map);
+        });
+    </script>
+</body>
+</html>
